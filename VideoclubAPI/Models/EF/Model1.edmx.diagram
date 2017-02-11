@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e18b5aebca8c43f1ab8648933aa0043c" Name="Diagram1">
+        <EntityTypeShape EntityType="pruebatajamarjrModel.Actor" Width="1.5" PointX="1.875" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="pruebatajamarjrModel.Actor_Pelicula" Width="1.5" PointX="4" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="pruebatajamarjrModel.Cliente" Width="1.5" PointX="8.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="pruebatajamarjrModel.Pelicula" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="pruebatajamarjrModel.FK_Actor_Pelicula_Actor_idActor" ManuallyRouted="false" />
+        <AssociationConnector Association="pruebatajamarjrModel.FK_Actor_Pelicula_Pelicula_idPelicula" ManuallyRouted="false" />
+        <AssociationConnector Association="pruebatajamarjrModel.FK_Pelicula_Cliente_idCliente" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

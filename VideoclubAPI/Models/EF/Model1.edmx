@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="pruebatajamarjrModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Actor">
+          <Key>
+            <PropertyRef Name="idActor" />
+          </Key>
+          <Property Name="idActor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Actor_Pelicula">
+          <Key>
+            <PropertyRef Name="idActor_Pelicula" />
+          </Key>
+          <Property Name="idActor_Pelicula" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idActor" Type="int" Nullable="false" />
+          <Property Name="idPelicula" Type="int" Nullable="false" />
+          <Property Name="Sueldo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="idCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pelicula">
+          <Key>
+            <PropertyRef Name="idPelicula" />
+          </Key>
+          <Property Name="idPelicula" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Ano" Type="int" Nullable="false" />
+          <Property Name="Formato" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Descripcion" Type="text" Nullable="false" />
+          <Property Name="idCliente" Type="int" />
+        </EntityType>
+        <Association Name="FK_Actor_Pelicula_Actor_idActor">
+          <End Role="Actor" Type="Self.Actor" Multiplicity="1" />
+          <End Role="Actor_Pelicula" Type="Self.Actor_Pelicula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actor">
+              <PropertyRef Name="idActor" />
+            </Principal>
+            <Dependent Role="Actor_Pelicula">
+              <PropertyRef Name="idActor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actor_Pelicula_Pelicula_idPelicula">
+          <End Role="Pelicula" Type="Self.Pelicula" Multiplicity="1" />
+          <End Role="Actor_Pelicula" Type="Self.Actor_Pelicula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pelicula">
+              <PropertyRef Name="idPelicula" />
+            </Principal>
+            <Dependent Role="Actor_Pelicula">
+              <PropertyRef Name="idPelicula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pelicula_Cliente_idCliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Pelicula" Type="Self.Pelicula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="idCliente" />
+            </Principal>
+            <Dependent Role="Pelicula">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="pruebatajamarjrModelStoreContainer">
+          <EntitySet Name="Actor" EntityType="Self.Actor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Actor_Pelicula" EntityType="Self.Actor_Pelicula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pelicula" EntityType="Self.Pelicula" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Actor_Pelicula_Actor_idActor" Association="Self.FK_Actor_Pelicula_Actor_idActor">
+            <End Role="Actor" EntitySet="Actor" />
+            <End Role="Actor_Pelicula" EntitySet="Actor_Pelicula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actor_Pelicula_Pelicula_idPelicula" Association="Self.FK_Actor_Pelicula_Pelicula_idPelicula">
+            <End Role="Pelicula" EntitySet="Pelicula" />
+            <End Role="Actor_Pelicula" EntitySet="Actor_Pelicula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pelicula_Cliente_idCliente" Association="Self.FK_Pelicula_Cliente_idCliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Pelicula" EntitySet="Pelicula" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="pruebatajamarjrModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Actor">
+          <Key>
+            <PropertyRef Name="idActor" />
+          </Key>
+          <Property Name="idActor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Actor_Pelicula" Relationship="Self.FK_Actor_Pelicula_Actor_idActor" FromRole="Actor" ToRole="Actor_Pelicula" />
+        </EntityType>
+        <EntityType Name="Actor_Pelicula">
+          <Key>
+            <PropertyRef Name="idActor_Pelicula" />
+          </Key>
+          <Property Name="idActor_Pelicula" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idActor" Type="Int32" Nullable="false" />
+          <Property Name="idPelicula" Type="Int32" Nullable="false" />
+          <Property Name="Sueldo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Actor" Relationship="Self.FK_Actor_Pelicula_Actor_idActor" FromRole="Actor_Pelicula" ToRole="Actor" />
+          <NavigationProperty Name="Pelicula" Relationship="Self.FK_Actor_Pelicula_Pelicula_idPelicula" FromRole="Actor_Pelicula" ToRole="Pelicula" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="idCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Pelicula" Relationship="Self.FK_Pelicula_Cliente_idCliente" FromRole="Cliente" ToRole="Pelicula" />
+        </EntityType>
+        <EntityType Name="Pelicula">
+          <Key>
+            <PropertyRef Name="idPelicula" />
+          </Key>
+          <Property Name="idPelicula" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ano" Type="Int32" Nullable="false" />
+          <Property Name="Formato" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idCliente" Type="Int32" />
+          <NavigationProperty Name="Actor_Pelicula" Relationship="Self.FK_Actor_Pelicula_Pelicula_idPelicula" FromRole="Pelicula" ToRole="Actor_Pelicula" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Pelicula_Cliente_idCliente" FromRole="Pelicula" ToRole="Cliente" />
+        </EntityType>
+        <Association Name="FK_Actor_Pelicula_Actor_idActor">
+          <End Role="Actor" Type="Self.Actor" Multiplicity="1" />
+          <End Role="Actor_Pelicula" Type="Self.Actor_Pelicula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actor">
+              <PropertyRef Name="idActor" />
+            </Principal>
+            <Dependent Role="Actor_Pelicula">
+              <PropertyRef Name="idActor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actor_Pelicula_Pelicula_idPelicula">
+          <End Role="Pelicula" Type="Self.Pelicula" Multiplicity="1" />
+          <End Role="Actor_Pelicula" Type="Self.Actor_Pelicula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pelicula">
+              <PropertyRef Name="idPelicula" />
+            </Principal>
+            <Dependent Role="Actor_Pelicula">
+              <PropertyRef Name="idPelicula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pelicula_Cliente_idCliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Pelicula" Type="Self.Pelicula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="idCliente" />
+            </Principal>
+            <Dependent Role="Pelicula">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="pruebatajamarjrEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Actor" EntityType="Self.Actor" />
+          <EntitySet Name="Actor_Pelicula" EntityType="Self.Actor_Pelicula" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Pelicula" EntityType="Self.Pelicula" />
+          <AssociationSet Name="FK_Actor_Pelicula_Actor_idActor" Association="Self.FK_Actor_Pelicula_Actor_idActor">
+            <End Role="Actor" EntitySet="Actor" />
+            <End Role="Actor_Pelicula" EntitySet="Actor_Pelicula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actor_Pelicula_Pelicula_idPelicula" Association="Self.FK_Actor_Pelicula_Pelicula_idPelicula">
+            <End Role="Pelicula" EntitySet="Pelicula" />
+            <End Role="Actor_Pelicula" EntitySet="Actor_Pelicula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pelicula_Cliente_idCliente" Association="Self.FK_Pelicula_Cliente_idCliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Pelicula" EntitySet="Pelicula" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="pruebatajamarjrModelStoreContainer" CdmEntityContainer="pruebatajamarjrEntities">
+          <EntitySetMapping Name="Actor">
+            <EntityTypeMapping TypeName="pruebatajamarjrModel.Actor">
+              <MappingFragment StoreEntitySet="Actor">
+                <ScalarProperty Name="idActor" ColumnName="idActor" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Actor_Pelicula">
+            <EntityTypeMapping TypeName="pruebatajamarjrModel.Actor_Pelicula">
+              <MappingFragment StoreEntitySet="Actor_Pelicula">
+                <ScalarProperty Name="idActor_Pelicula" ColumnName="idActor_Pelicula" />
+                <ScalarProperty Name="idActor" ColumnName="idActor" />
+                <ScalarProperty Name="idPelicula" ColumnName="idPelicula" />
+                <ScalarProperty Name="Sueldo" ColumnName="Sueldo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="pruebatajamarjrModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pelicula">
+            <EntityTypeMapping TypeName="pruebatajamarjrModel.Pelicula">
+              <MappingFragment StoreEntitySet="Pelicula">
+                <ScalarProperty Name="idPelicula" ColumnName="idPelicula" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Ano" ColumnName="Ano" />
+                <ScalarProperty Name="Formato" ColumnName="Formato" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
